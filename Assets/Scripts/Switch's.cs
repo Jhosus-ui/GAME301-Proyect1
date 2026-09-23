@@ -6,25 +6,21 @@ public class Switchs : MonoBehaviour
     public Transform switchVisual;
     private Vector3 originalPosition;
     public float pressDistance = 0.15f;
+
+    public SwitchManager SwitchManager;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isActivate = true;
+            if (!isActivate)
+            {
+                isActivate = true;
 
-            switchVisual.localPosition=originalPosition+Vector3.down*pressDistance;
-            Debug.Log("Switch activated");
-        }
-    }
+                switchVisual.localPosition = originalPosition + Vector3.down * pressDistance;
+                Debug.Log("Switch activated");
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isActivate = false;
-
-            switchVisual.localPosition=originalPosition;
-            Debug.Log("Switch deactivated");
+                SwitchManager.ActivateSwitch();
+            }
         }
     }
 
