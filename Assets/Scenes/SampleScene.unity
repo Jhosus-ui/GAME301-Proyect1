@@ -407,16 +407,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444387923}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.26, y: -1.251, z: 0.88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.69970304, w: 0.71443385}
+  m_LocalPosition: {x: -1.3768, y: 0.13, z: -2.29}
+  m_LocalScale: {x: 0.61109, y: 0.61109, z: 0.61109}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 518237953}
   - {fileID: 1982101823}
   - {fileID: 253760999}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -88.806}
 --- !u!1 &456332252
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,7 +541,7 @@ GameObject:
   - component: {fileID: 518237955}
   - component: {fileID: 518237954}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Button 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,7 +596,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2.5, y: 2.5, z: 2.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 682923125}
   - component: {fileID: 682923124}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Button 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -819,7 +819,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2.5, y: 2.5, z: 2.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &820885946
 GameObject:
@@ -1110,6 +1110,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchManager
   requiredSwitches: 3
+  switches:
+  - {fileID: 682923124}
+  - {fileID: 518237954}
+  - {fileID: 1423417103}
   door: {fileID: 947437074}
 --- !u!1 &947437072
 GameObject:
@@ -1910,7 +1914,7 @@ GameObject:
   - component: {fileID: 1423417104}
   - component: {fileID: 1423417103}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Button 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1965,7 +1969,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2.5, y: 2.5, z: 2.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1426978226
 GameObject:
@@ -2023,16 +2027,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427759845}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.78, y: -1.251, z: 0.88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.69503355, w: 0.7189774}
+  m_LocalPosition: {x: -1.1595, y: 0.24, z: 0.66}
+  m_LocalScale: {x: 0.56984, y: 0.56984, z: 0.56984}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 682923123}
   - {fileID: 1250292341}
   - {fileID: 1221381608}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -88.06}
 --- !u!1 &1447966501
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,16 +2173,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592922854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.12, y: -1.251, z: 0.88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.71033484, w: 0.7038639}
+  m_LocalPosition: {x: -1.3875, y: 0.33, z: -5.72}
+  m_LocalScale: {x: 0.61698, y: 0.61698, z: 0.61698}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1423417102}
   - {fileID: 989356221}
   - {fileID: 6464872}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.524}
 --- !u!1 &1669349279
 GameObject:
   m_ObjectHideFlags: 0
