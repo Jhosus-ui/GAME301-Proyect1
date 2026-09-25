@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -9,6 +10,11 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
+    public Transform playerVisual;
+    public float rotationSpeed = 10.0f;
+
+    private bool isAiming = false;
+    private Vector3 aimPoint;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -46,5 +52,33 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
+        if (isAiming)
+        {
+            Vector3 aimDirection = aimPoint - playerVisual.position;
+            aimDirection.y = 0f;
+
+            if(aimDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(aimDirection);
+                playerVisual.rotation = Quaternion.Slerp(playerVisual.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
+        }
+        else if (move != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            playerVisual.rotation = Quaternion.Slerp(playerVisual.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+    }
+
+    public void SetAimPoint(Vector3 point)
+    {
+        isAiming = true;
+        aimPoint = point;
+    }
+
+    public void StopAiming()
+    {
+        isAiming = false;
     }
 }
