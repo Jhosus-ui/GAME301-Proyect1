@@ -31,7 +31,7 @@ public class Portal : MonoBehaviour
         controller.enabled = true;
 
         // Libera el bloqueo en el siguiente frame (o tras un pequeño delay)
-        Invoke(nameof(UnblockTeleport), 0.4f);
+        Invoke(nameof(UnblockTeleport), 0.5f);
     }
 
     private void UnblockTeleport()
