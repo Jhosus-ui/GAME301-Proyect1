@@ -18,30 +18,12 @@ public class PortalGun : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetMouseButton(1))
+        // A single left click attempts to place the Blue Portal.
+        // The player no longer needs to enter a separate aiming mode.
+        if (Input.GetMouseButtonDown(0))
         {
-            Aim();
-            if (Input.GetMouseButtonDown(0))
-            {
-                ShootPortal();
-            }
+            ShootPortal();
         }
-        else
-        {
-            playerController.StopAiming();
-        }
-    }
-
-    private void Aim()
-    {
-        Ray ray= playerCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if(Physics.Raycast(ray, out hit, maxDistance, portalSurface))
-        {
-            playerController.SetAimPoint(hit.point);
-        }
-
     }
 
     private void ShootPortal()
@@ -53,12 +35,17 @@ public class PortalGun : MonoBehaviour
             Vector3 direction = hit.point - playerController.transform.position;
             float distance = direction.magnitude;
 
-            if (Physics.Raycast(playerController.transform.position, direction.normalized, distance, portalBlocker))
+            if (Physics.Raycast(playerController.transform.position,direction.normalized, distance,portalBlocker))
             {
-
                 Debug.Log("Portal shot blocked.");
                 return;
             }
+
+            // The shot is valid, so the character faces the direction
+            // where the Blue Portal is about to be placed.
+            playerController.FaceShootDirection(hit.point);
+
+            bluePortal.gameObject.SetActive(true);
 
             bluePortal.gameObject.SetActive(true);
             Debug.Log("Portal shot hit: " + hit.collider.name);
@@ -66,7 +53,5 @@ public class PortalGun : MonoBehaviour
 
             bluePortal.position = hit.point + hit.normal * 0.02f;
         }
-
-
     }
 }

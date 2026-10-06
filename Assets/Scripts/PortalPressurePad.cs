@@ -8,6 +8,8 @@ public class PortalPressurePad: MonoBehaviour
     [SerializeField] private bool toggleMode = false;
     [SerializeField] private Transform returnPoint;
 
+    [SerializeField] private ButtonVisual buttonVisual;
+
     private bool isToggled = false;
 
     private void OnTriggerEnter(Collider other)
@@ -17,6 +19,10 @@ public class PortalPressurePad: MonoBehaviour
             return;
         }
 
+        if (buttonVisual != null)
+        {
+            buttonVisual.PlayPressEffect();
+        }
         if (!toggleMode)
         {
             portalController.MovePortalTo(targetPoint);

@@ -2,26 +2,39 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private Transform leftDoorVisual;
+    [SerializeField] private Transform rightDoorVisual;
+    [SerializeField] private float openDistance = 1.5f;
 
-    public Transform doorVisual;
-    public float openDistance = 3f;
-    private Vector3 closedPosition;
-
+    private Vector3 leftClosedPosition;
+    private Vector3 rightClosedPosition;
 
     private void Start()
     {
-        closedPosition = doorVisual.localPosition;
+        // Saves the initial world positions so both pieces
+        // can always return to their original closed position.
+        leftClosedPosition = leftDoorVisual.position;
+        rightClosedPosition = rightDoorVisual.position;
     }
 
     public void OpenDoor()
     {
-        doorVisual.localPosition = closedPosition + Vector3.up * openDistance;
-        Debug.Log("Door opened");
+        // Calculates the direction from the left door piece
+        // toward the right door piece based on their actual positions.
+        Vector3 openingDirection =
+            (rightDoorVisual.position - leftDoorVisual.position).normalized;
+
+        // Each half moves away from the center in opposite directions.
+        leftDoorVisual.position =
+            leftClosedPosition - openingDirection * openDistance;
+
+        rightDoorVisual.position =
+            rightClosedPosition + openingDirection * openDistance;
     }
 
     public void CloseDoor()
     {
-        doorVisual.localPosition = closedPosition;
-        Debug.Log("Door closed");
+        leftDoorVisual.position = leftClosedPosition;
+        rightDoorVisual.position = rightClosedPosition;
     }
 }

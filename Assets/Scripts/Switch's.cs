@@ -41,7 +41,7 @@ public class Switchs : MonoBehaviour
     {
         isActivate = true;
 
-        switchVisual.localPosition = originalPosition + Vector3.down * pressDistance;
+        switchVisual.localPosition = originalPosition + Vector3.back * pressDistance;
         Debug.Log("Switch activated");
 
         SwitchManager.ActivateSwitch();

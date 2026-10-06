@@ -6,47 +6,51 @@ public class CameraMovement : MonoBehaviour
     public float velocity = 10f;
 
     [Header("Follow Player")]
-    public Transform player;            
-    public float returnSpeed = 5f;         
+    public Transform player;
+    public float returnSpeed = 5f;
     public Vector3 offset = new Vector3(0f, 5f, -8f);
 
     private float yOriginal;
+    public bool IsFreeCameraActive { get; private set; }
 
-    void Start()
+    private void Start()
     {
-        // Stores the camera initial height so free camera movement
         yOriginal = transform.position.y;
+
+        IsFreeCameraActive = false;
     }
 
-    void LateUpdate()
+    private void Update()
     {
-        // While TAB is held, WASD controls the camera instead of the player
-        if (Input.GetKey(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            IsFreeCameraActive = !IsFreeCameraActive;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (IsFreeCameraActive)
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
 
-            Vector3 movimiento = new Vector3(h, 0f, v) * velocity * Time.deltaTime;
-            transform.position += movimiento;
+            Vector3 movement =
+                new Vector3(h, 0f, v) * velocity * Time.deltaTime;
 
-            // Keeps the camera at its original height while moving freely
-            // preventing vertical movement during camera mode
-            Vector3 pos = transform.position;
-            pos.y = yOriginal;
-            transform.position = pos;
+            transform.position += movement;
+            Vector3 position = transform.position;
+            position.y = yOriginal;
+            transform.position = position;
         }
-
-        // When TAB is released, calculates the camera's normal position
         else if (player != null)
         {
-            
-            Vector3 destino = player.position + offset;
-            destino.y = yOriginal;
+            Vector3 destination = player.position + offset;
+            destination.y = yOriginal;
 
-            // Smoothly moves the camera back toward the player instead
             transform.position = Vector3.Lerp(
                 transform.position,
-                destino,
+                destination,
                 returnSpeed * Time.deltaTime
             );
         }
