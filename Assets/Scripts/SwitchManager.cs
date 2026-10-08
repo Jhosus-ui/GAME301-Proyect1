@@ -15,6 +15,12 @@ public class SwitchManager : MonoBehaviour
     [Header("List Switchs")]
     public Switchs[] switches;
 
+    [Header("Timer Audio")]
+    [SerializeField] private AudioSource timerAudio;
+    [SerializeField] private float tickInterval = 1f;
+
+    private float tickCountdown = 0f;
+
     public Door door;
     public void ActivateSwitch()
     {
@@ -24,6 +30,7 @@ public class SwitchManager : MonoBehaviour
         {
              currentTime = timelimit;
             timerRunning = true;
+            tickCountdown = 0f;
             Debug.Log("Timer started");
         }
 
@@ -57,6 +64,25 @@ public class SwitchManager : MonoBehaviour
        if (timerRunning)
        {
             currentTime -= Time.deltaTime;
+            tickCountdown -= Time.deltaTime;
+
+            if (tickCountdown <= 0f)
+            {
+                Debug.Log("Timer tick triggered");
+                if (timerAudio != null)
+                {
+                    timerAudio.Play();
+                }
+                else
+                {
+                    Debug.LogWarning("Timer AudioSource is missing!");
+                }
+
+                float timeRatio = Mathf.Clamp01(currentTime / timelimit);
+
+                tickCountdown = Mathf.Lerp(0.2f,tickInterval,timeRatio);
+            }
+
             if (currentTime <= 0f)
             {
                 ResetAllSwitches();

@@ -9,6 +9,8 @@ public class Switchs : MonoBehaviour
     private Vector3 originalPosition;
     public float pressDistance = 0.15f;
 
+    [SerializeField] private AudioSource switchAudio;
+
     public SwitchManager SwitchManager;
     private void Start()
     {
@@ -45,6 +47,11 @@ public class Switchs : MonoBehaviour
         Debug.Log("Switch activated");
 
         SwitchManager.ActivateSwitch();
+
+        if (switchAudio != null)
+        {
+            switchAudio.Play();
+        }
     }
     public void ResetSwitch()
     {

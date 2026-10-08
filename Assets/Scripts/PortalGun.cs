@@ -11,7 +11,8 @@ public class PortalGun : MonoBehaviour
     public PlayerController playerController;
 
     [SerializeField] private LayerMask portalBlocker;
-
+    [SerializeField] private AudioSource portalShootaudio;
+ 
     public void Start()
     {
         bluePortal.gameObject.SetActive(false);
@@ -52,6 +53,7 @@ public class PortalGun : MonoBehaviour
             Debug.Log("Hit Position: " + hit.point);
 
             bluePortal.position = hit.point + hit.normal * 0.02f;
+            portalShootaudio.Play();
         }
     }
 }

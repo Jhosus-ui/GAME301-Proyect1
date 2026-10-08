@@ -9,6 +9,7 @@ public class PortalPressurePad: MonoBehaviour
     [SerializeField] private Transform returnPoint;
 
     [SerializeField] private ButtonVisual buttonVisual;
+    [SerializeField] private AudioSource padAudio;
 
     private bool isToggled = false;
 
@@ -23,6 +24,12 @@ public class PortalPressurePad: MonoBehaviour
         {
             buttonVisual.PlayPressEffect();
         }
+
+        if (padAudio != null)
+        {
+            padAudio.Play();
+        }
+
         if (!toggleMode)
         {
             portalController.MovePortalTo(targetPoint);
