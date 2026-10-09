@@ -12,19 +12,18 @@ public class Door : MonoBehaviour
     private void Start()
     {
         // Saves the initial world positions so both pieces
-        // can always return to their original closed position.
+        // can always return to their original closed position
         leftClosedPosition = leftDoorVisual.position;
         rightClosedPosition = rightDoorVisual.position;
     }
 
+    // Called by SwitchManager when all required switches are activated
     public void OpenDoor()
     {
-        // Calculates the direction from the left door piece
-        // toward the right door piece based on their actual positions.
         Vector3 openingDirection =
             (rightDoorVisual.position - leftDoorVisual.position).normalized;
 
-        // Each half moves away from the center in opposite directions.
+        // Each half moves away from the center in opposite directions
         leftDoorVisual.position =
             leftClosedPosition - openingDirection * openDistance;
 
@@ -32,6 +31,7 @@ public class Door : MonoBehaviour
             rightClosedPosition + openingDirection * openDistance;
     }
 
+    // Restore the door to its closed state when the puzzle resets
     public void CloseDoor()
     {
         leftDoorVisual.position = leftClosedPosition;

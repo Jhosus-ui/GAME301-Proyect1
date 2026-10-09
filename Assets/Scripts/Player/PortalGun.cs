@@ -15,6 +15,7 @@ public class PortalGun : MonoBehaviour
  
     public void Start()
     {
+        // Keep the Blue Portal hidden until the player's first valid shot.
         bluePortal.gameObject.SetActive(false);
     }
     private void Update()
@@ -29,6 +30,8 @@ public class PortalGun : MonoBehaviour
 
     private void ShootPortal()
     {
+        // Cast a ray from the camera through the mouse position
+        // to find a valid portal placement surface
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxDistance, portalSurface))
@@ -36,6 +39,8 @@ public class PortalGun : MonoBehaviour
             Vector3 direction = hit.point - playerController.transform.position;
             float distance = direction.magnitude;
 
+            // Check the path from the player to the target
+            // Prevent portal placement through blocking walls
             if (Physics.Raycast(playerController.transform.position,direction.normalized, distance,portalBlocker))
             {
                 Debug.Log("Portal shot blocked.");
@@ -43,7 +48,7 @@ public class PortalGun : MonoBehaviour
             }
 
             // The shot is valid, so the character faces the direction
-            // where the Blue Portal is about to be placed.
+            // where the Blue Portal is about to be placed
             playerController.FaceShootDirection(hit.point);
 
             bluePortal.gameObject.SetActive(true);
@@ -52,6 +57,8 @@ public class PortalGun : MonoBehaviour
             Debug.Log("Portal shot hit: " + hit.collider.name);
             Debug.Log("Hit Position: " + hit.point);
 
+            // Offset the portal slightly above the surface
+            // to prevent visual overlap with the floor
             bluePortal.position = hit.point + hit.normal * 0.02f;
             portalShootaudio.Play();
         }

@@ -8,13 +8,14 @@ public class RedPortalController : MonoBehaviour
 
     private void Start()
     {
+        // Place the Red Portal at its initial position when the level starts
         MovePortalTo(startingPoint);
     }
 
     public void MovePortalTo(Transform targetPoint)
     {
-
-        if(targetPoint== null)
+        // Prevent moving the portal if no destination point was assigned
+        if (targetPoint== null)
         {
             Debug.LogWarning("No Red Portal target point assigned.");
             return;

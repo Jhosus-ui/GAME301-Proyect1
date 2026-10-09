@@ -15,7 +15,8 @@ public class PortalPressurePad: MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!other.CompareTag("Player"))
+        // Only the player can activate the pressure pad
+        if (!other.CompareTag("Player"))
         {
             return;
         }
@@ -30,12 +31,15 @@ public class PortalPressurePad: MonoBehaviour
             padAudio.Play();
         }
 
+        // In normal mode, move the Red Portal to the target point
+        // In toggle mode, alternate between the target and return points
         if (!toggleMode)
         {
             portalController.MovePortalTo(targetPoint);
             return;
         }
 
+        // Track the current toggle state to determine the next destination
         if (!isToggled)
         {
             portalController.MovePortalTo(targetPoint);

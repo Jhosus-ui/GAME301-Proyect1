@@ -15,6 +15,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
+        // Store the camera's initial height to keep it fixed during free movement
         yOriginal = transform.position.y;
 
         IsFreeCameraActive = false;
@@ -35,8 +36,8 @@ public class CameraMovement : MonoBehaviour
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
 
-            Vector3 movement =
-                new Vector3(h, 0f, v) * velocity * Time.deltaTime;
+            // Convert WASD input into camera movement independent of frame rate
+            Vector3 movement = new Vector3(h, 0f, v) * velocity * Time.deltaTime;
 
             transform.position += movement;
             Vector3 position = transform.position;
@@ -45,14 +46,11 @@ public class CameraMovement : MonoBehaviour
         }
         else if (player != null)
         {
+            // Calculate the camera's follow position relative to the player
             Vector3 destination = player.position + offset;
             destination.y = yOriginal;
 
-            transform.position = Vector3.Lerp(
-                transform.position,
-                destination,
-                returnSpeed * Time.deltaTime
-            );
+            transform.position = Vector3.Lerp(transform.position,destination, returnSpeed * Time.deltaTime);
         }
     }
 }

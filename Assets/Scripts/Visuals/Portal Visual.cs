@@ -8,7 +8,8 @@ public class PortalVisual : MonoBehaviour
 
     private void Update()
     {
-        //Rotates around the portal visual's own local axis.
+        // Rotate the portal visual around its local axis
+        // Time.deltaTime keeps the rotation speed independent of frame rate
         transform.Rotate(rotationaxis, rotationSpeed * Time.deltaTime,Space.Self);
     }
 }

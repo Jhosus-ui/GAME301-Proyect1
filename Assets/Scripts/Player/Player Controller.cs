@@ -34,11 +34,14 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = controller.isGrounded;
 
+        // Maintain ground contact when the player is not jumping.
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
+        // Disable horizontal movement in free camera mode,
+        // while keeping gravity active.
         if (cameraMovement != null && cameraMovement.IsFreeCameraActive)
         {
             velocity.y += gravity * Time.deltaTime;
@@ -52,6 +55,8 @@ public class PlayerController : MonoBehaviour
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
         controller.Move(move * speed * Time.deltaTime);
 
+        // Calculate the initial upward velocity required
+        // to reach the configured jump height.
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -60,6 +65,8 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
+        // Temporarily prioritize the portal shot direction
+        // over the normal movement-facing rotation
         if (shootRotationTimer > 0f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(shootDirection);
@@ -75,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    // Called by PortalGun to briefly face the portal shot direction
     public void FaceShootDirection(Vector3 targetPoint)
     {
         shootDirection = targetPoint - playerVisual.position;

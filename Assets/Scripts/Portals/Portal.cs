@@ -5,7 +5,7 @@ public class Portal : MonoBehaviour
     public Transform exitPoint;
     public Portal connectedPortal;
 
-    // Bloqueo local por portal (no static)
+    // Prevents repeated teleportation while the portals are temporarily locked
     private bool canTeleport = true;
 
     private void OnTriggerEnter(Collider other)
@@ -21,16 +21,16 @@ public class Portal : MonoBehaviour
         CharacterController controller = player.GetComponent<CharacterController>();
         if (controller == null) return;
 
-        // Bloquea este portal y el destino para evitar bucle inmediato
+        // Lock both portals to prevent immediate teleportation loops
         canTeleport = false;
         connectedPortal.canTeleport = false;
 
-        // Desactiva el CharacterController antes de mover
+        // Temporarily disable CharacterController to reposition the player safely
         controller.enabled = false;
         player.transform.position = exitPoint.position;
         controller.enabled = true;
 
-        // Libera el bloqueo en el siguiente frame (o tras un pequeño delay)
+        // Restore teleportation after a short cooldown
         Invoke(nameof(UnblockTeleport), 0.5f);
     }
 

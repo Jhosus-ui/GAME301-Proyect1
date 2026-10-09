@@ -18,6 +18,8 @@ public class Switchs : MonoBehaviour
     }
     private void Update()
     {
+        // Allow interaction only when the player is nearby
+        // and the switch has not already been activated
         if (playerInRange && Input.GetKeyDown(KeyCode.E) && !isActivate)
         {
             Activate();
@@ -28,8 +30,6 @@ public class Switchs : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-
-            Debug.Log("Press E to activate the switch");
         }
     }
     private void OnTriggerExit(Collider other)
@@ -43,8 +43,8 @@ public class Switchs : MonoBehaviour
     {
         isActivate = true;
 
+        // Move the switch visual to provide feedback when activated
         switchVisual.localPosition = originalPosition + Vector3.back * pressDistance;
-        Debug.Log("Switch activated");
 
         SwitchManager.ActivateSwitch();
 
@@ -53,10 +53,11 @@ public class Switchs : MonoBehaviour
             switchAudio.Play();
         }
     }
+    // Called by SwitchManager to restore the switch
+    // when the player runs out of time
     public void ResetSwitch()
     {
         isActivate = false;
         switchVisual.localPosition = originalPosition;
-        Debug.Log("Switch deactivated");
     }
 }
