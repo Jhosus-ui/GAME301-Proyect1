@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -7,6 +8,7 @@ public class PortalGun : MonoBehaviour
     public Camera playerCamera;
     public float maxDistance = 100f;
     public Transform bluePortal;
+    public Transform redPortal;
     public LayerMask portalSurface;
     public PlayerController playerController;
 
@@ -25,6 +27,10 @@ public class PortalGun : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             ShootPortal();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            ShootRedPortal();
         }
     }
 
@@ -60,6 +66,41 @@ public class PortalGun : MonoBehaviour
             // Offset the portal slightly above the surface
             // to prevent visual overlap with the floor
             bluePortal.position = hit.point + hit.normal * 0.02f;
+            portalShootaudio.Play();
+        }
+    }
+    private void ShootRedPortal()
+    {
+        // Cast a ray from the camera through the mouse position
+        // to find a valid portal placement surface
+        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, maxDistance, portalSurface))
+        {
+            Vector3 direction = hit.point - playerController.transform.position;
+            float distance = direction.magnitude;
+
+            // Check the path from the player to the target
+            // Prevent portal placement through blocking walls
+            if (Physics.Raycast(playerController.transform.position, direction.normalized, distance, portalBlocker))
+            {
+                Debug.Log("Portal shot blocked.");
+                return;
+            }
+
+            // The shot is valid, so the character faces the direction
+            // where the Blue Portal is about to be placed
+            playerController.FaceShootDirection(hit.point);
+
+            redPortal.gameObject.SetActive(true);
+
+            redPortal.gameObject.SetActive(true);
+            Debug.Log("Portal shot hit: " + hit.collider.name);
+            Debug.Log("Hit Position: " + hit.point);
+
+            // Offset the portal slightly above the surface
+            // to prevent visual overlap with the floor
+            redPortal.position = hit.point + hit.normal * 0.02f;
             portalShootaudio.Play();
         }
     }
