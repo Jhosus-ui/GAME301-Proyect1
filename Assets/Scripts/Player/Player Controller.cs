@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private Vector3 shootDirection;
     private float shootRotationTimer = 0f;
-
+    public TMP_Text ButtonPrompt;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -100,4 +101,14 @@ public class PlayerController : MonoBehaviour
             shootRotationTimer = shootRotationDuration;
         }
     }
+    public void ShowDirection(string info)
+    {
+        ButtonPrompt.text = info;
+    }
+
+    public void HideDirection()
+    {
+        ButtonPrompt.text = null;
+    }
+
 }

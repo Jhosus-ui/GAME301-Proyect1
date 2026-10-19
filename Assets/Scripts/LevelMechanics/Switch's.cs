@@ -8,6 +8,7 @@ public class Switchs : MonoBehaviour
     public Transform switchVisual;
     private Vector3 originalPosition;
     public float pressDistance = 0.15f;
+    private PlayerController PC;
 
     [SerializeField] private AudioSource switchAudio;
 
@@ -15,6 +16,7 @@ public class Switchs : MonoBehaviour
     private void Start()
     {
         originalPosition = switchVisual.localPosition;
+        PC = FindFirstObjectByType<PlayerController>();
     }
     private void Update()
     {
@@ -30,6 +32,10 @@ public class Switchs : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            if (!isActivate)
+            {
+                PC.ShowDirection("E");
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -37,6 +43,7 @@ public class Switchs : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            PC.HideDirection();
         }
     }
     private void Activate()
