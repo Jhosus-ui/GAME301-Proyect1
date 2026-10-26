@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections.Generic;
+using UnityEngine.UIElements;
+using System.Runtime.CompilerServices;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -26,6 +29,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 shootDirection;
     private float shootRotationTimer = 0f;
     public TMP_Text ButtonPrompt;
+    public AudioSource FootstepsSource;
+    public AudioClip CurrentFootstepSFX;
+    public List<AudioClip> WalkSFXs;
+
+    private float moveX;
+    private float moveZ;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -51,8 +60,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        moveX = Input.GetAxis("Horizontal");
+        moveZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
         controller.Move(move * speed * Time.deltaTime);
@@ -87,6 +96,20 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene("MainMenu");
         }
+
+        if ((moveX != 0 || moveZ != 0) && velocity.y < -2 && velocity.y > -2.5)
+        {
+            Debug.Log("SoundOn!");
+            if (!FootstepsSource.isPlaying)
+            {
+
+                FootstepsSource.PlayOneShot(CurrentFootstepSFX);
+            }
+        }
+        else
+        {
+            FootstepsSource.Stop();
+        }
     }
 
     // Called by PortalGun to briefly face the portal shot direction
@@ -111,4 +134,23 @@ public class PlayerController : MonoBehaviour
         ButtonPrompt.text = null;
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Stone"))
+        {
+            CurrentFootstepSFX = WalkSFXs[0];
+        }
+        if (hit.gameObject.CompareTag("Metal"))
+        {
+            CurrentFootstepSFX = WalkSFXs[1];
+        }
+        if (hit.gameObject.CompareTag("Grass"))
+        {
+            CurrentFootstepSFX = WalkSFXs[2];
+        }
+        if (hit.gameObject.CompareTag("Tile"))
+        {
+            CurrentFootstepSFX = WalkSFXs[3];
+        }
+    }
 }

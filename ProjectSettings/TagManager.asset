@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Stone
+  - Metal
+  - Grass
+  - Tile
   layers:
   - Default
   - TransparentFX

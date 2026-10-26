@@ -1,3 +1,4 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
@@ -9,19 +10,15 @@ public class MainMenu : MonoBehaviour
     private AudioSource MusicPlayer;
     public AudioClip MainMenuMusic;
 
-    [Header("Controls Flickering Light")]
-    public Light DL;
-    public float FlickerInterval;
-    public float FlickerLength;
-    private float FlickerLengthTimer;
-    private float FlickerTimer;
-    private bool FlickeredOnce;
+    [Header("Controls Loading Out")]
+    public SpriteRenderer ShadowSR;
+    private bool StartLeaving;
+    private float Opacity;
+    public float FadeSpeed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         MusicPlayer = GetComponent<AudioSource>();
-        FlickerTimer = FlickerInterval;
-        FlickerLengthTimer = FlickerLength;
     }
 
     // Update is called once per frame
@@ -29,34 +26,24 @@ public class MainMenu : MonoBehaviour
     {
         if (BackgroundMusicEnabled && !MusicPlayer.isPlaying)
         {
-            MusicPlayer.PlayOneShot(MainMenuMusic);
+            MusicPlayer.PlayOneShot(MainMenuMusic, 0.75f);
         }
-        if (FlickerTimer > 0)
+
+        if (StartLeaving == true)
         {
-            FlickerTimer -= Time.deltaTime;
-        }
-        else
-        {
-            DL.intensity = 50;
-            FlickerLengthTimer -= Time.deltaTime;
-            if (FlickerLengthTimer < 0 & FlickeredOnce)
+            Opacity += FadeSpeed * Time.deltaTime;
+            MusicPlayer.volume = 1 - Opacity;
+            ShadowSR.color = new Color(0, 0, 0, Opacity);
+
+            if (Opacity > 1)
             {
-                DL.intensity = 70;
-                FlickerLengthTimer = FlickerLength;
-                FlickerTimer = FlickerInterval;
-                FlickeredOnce = false;
-            }
-            if (FlickerLengthTimer < 0 && !FlickeredOnce)
-            {
-                FlickerLengthTimer = FlickerLength;
-                DL.intensity = 70;
-                FlickeredOnce = true;
-                FlickerTimer = 0.2f;
+                SceneManager.LoadScene("GAMEPLAY INTEGRATION");
             }
         }
     }
     public void LoadGame()
     {
-        SceneManager.LoadScene("GAMEPLAY INTEGRATION");
+        StartLeaving = true;
+        
     }
 }
