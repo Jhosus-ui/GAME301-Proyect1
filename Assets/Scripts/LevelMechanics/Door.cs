@@ -8,6 +8,8 @@ public class Door : MonoBehaviour
 
     private Vector3 leftClosedPosition;
     private Vector3 rightClosedPosition;
+    public AudioSource DoorAS;
+    public AudioClip DoorSFX;
 
     private void Start()
     {
@@ -20,6 +22,7 @@ public class Door : MonoBehaviour
     // Called by SwitchManager when all required switches are activated
     public void OpenDoor()
     {
+        DoorAS.PlayOneShot(DoorSFX);
         Vector3 openingDirection =
             (rightDoorVisual.position - leftDoorVisual.position).normalized;
 
@@ -34,6 +37,7 @@ public class Door : MonoBehaviour
     // Restore the door to its closed state when the puzzle resets
     public void CloseDoor()
     {
+        DoorAS.PlayOneShot(DoorSFX);
         leftDoorVisual.position = leftClosedPosition;
         rightDoorVisual.position = rightClosedPosition;
     }

@@ -29,9 +29,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 shootDirection;
     private float shootRotationTimer = 0f;
     public TMP_Text ButtonPrompt;
+    [Header("Audio Stuff")]
     public AudioSource FootstepsSource;
+    public AudioSource MiscSource;
     public AudioClip CurrentFootstepSFX;
     public List<AudioClip> WalkSFXs;
+    public AudioClip CrashSFX;
+    private bool PlayCrashSound;
 
     private float moveX;
     private float moveZ;
@@ -44,6 +48,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         isGrounded = controller.isGrounded;
+
+        if (isGrounded && PlayCrashSound)
+        {
+            Debug.Log("Crash!");
+            MiscSource.PlayOneShot(CrashSFX, 0.25f);
+            PlayCrashSound = false;
+        }
 
         // Maintain ground contact when the player is not jumping.
         if (isGrounded && velocity.y < 0)
@@ -71,6 +82,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            PlayCrashSound = true;
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -97,13 +109,13 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
 
-        if ((moveX != 0 || moveZ != 0) && velocity.y < -2 && velocity.y > -2.5)
+        if ((moveX != 0 || moveZ != 0) && isGrounded)
         {
             Debug.Log("SoundOn!");
             if (!FootstepsSource.isPlaying)
             {
 
-                FootstepsSource.PlayOneShot(CurrentFootstepSFX);
+                FootstepsSource.PlayOneShot(CurrentFootstepSFX, 1.25f);
             }
         }
         else
