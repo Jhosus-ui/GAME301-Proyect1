@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip CrashSFX;
     private bool PlayCrashSound;
 
+    [Header("Animation")]
+    public Animator PlayerAnim;
+
     private float moveX;
     private float moveZ;
     private void Start()
@@ -111,7 +114,6 @@ public class PlayerController : MonoBehaviour
 
         if ((moveX != 0 || moveZ != 0) && isGrounded)
         {
-            Debug.Log("SoundOn!");
             if (!FootstepsSource.isPlaying)
             {
 
@@ -121,6 +123,26 @@ public class PlayerController : MonoBehaviour
         else
         {
             FootstepsSource.Stop();
+        }
+
+
+        //animation stuff, 0 = Idle, 1 = Walking, 2 = Jumping
+        if (!isGrounded)
+        {
+            PlayerAnim.SetInteger("State", 2);
+        }
+        else
+        {
+            
+            if (moveX != 0 || moveZ != 0)
+            {
+                Debug.Log("Check");
+                PlayerAnim.SetInteger("State", 1);
+            }
+            else
+            {
+                PlayerAnim.SetInteger("State", 0);
+            }
         }
     }
 
