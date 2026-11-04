@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SwitchManager : MonoBehaviour
@@ -22,6 +23,8 @@ public class SwitchManager : MonoBehaviour
     private float tickCountdown = 0f;
 
     public Door door;
+
+    
     public void ActivateSwitch()
     {
         activatedSwitches++;
@@ -44,6 +47,8 @@ public class SwitchManager : MonoBehaviour
             door.OpenDoor();
             Debug.Log("Door opened");
         }
+
+
     }
 
     // Restore the puzzle to its initial state when the time limit expires
