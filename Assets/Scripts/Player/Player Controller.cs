@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && PlayCrashSound)
         {
-            Debug.Log("Crash!");
             MiscSource.PlayOneShot(CrashSFX, 0.25f);
             PlayCrashSound = false;
         }
@@ -136,7 +135,6 @@ public class PlayerController : MonoBehaviour
 
             if (moveX != 0 || moveZ != 0)
             {
-                Debug.Log("Check");
                 PlayerAnim.SetInteger("State", 1);
             }
             else
