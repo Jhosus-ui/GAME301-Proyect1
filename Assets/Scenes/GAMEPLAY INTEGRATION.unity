@@ -3496,7 +3496,7 @@ MonoBehaviour:
   leftDoorVisual: {fileID: 1098797359}
   rightDoorVisual: {fileID: 566979184}
   openDistance: 1.5
-  DoorAS: {fileID: 0}
+  DoorAS: {fileID: 1435664447}
   DoorSFX: {fileID: 8300000, guid: 88a505ac57654bf4fbc1c800e556e736, type: 3}
 --- !u!1001 &573120071
 PrefabInstance:
@@ -6981,7 +6981,7 @@ MonoBehaviour:
   leftDoorVisual: {fileID: 1098797359}
   rightDoorVisual: {fileID: 566979184}
   openDistance: 1.5
-  DoorAS: {fileID: 0}
+  DoorAS: {fileID: 1435664447}
   DoorSFX: {fileID: 8300000, guid: 88a505ac57654bf4fbc1c800e556e736, type: 3}
 --- !u!1001 &1106310481
 PrefabInstance:
