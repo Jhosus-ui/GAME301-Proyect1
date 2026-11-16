@@ -19,6 +19,8 @@ public class PortalGun : MonoBehaviour
     {
         // Keep the Blue Portal hidden until the player's first valid shot.
         bluePortal.gameObject.SetActive(false);
+        redPortal.gameObject.SetActive(false);
+
     }
     private void Update()
     {
@@ -32,8 +34,17 @@ public class PortalGun : MonoBehaviour
         {
             ShootRedPortal();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadPortal();
+        }
     }
 
+    private void ReloadPortal()
+    {
+        Start();
+    }
     private void ShootPortal()
     {
         // Cast a ray from the camera through the mouse position
