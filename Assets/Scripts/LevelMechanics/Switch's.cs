@@ -5,18 +5,19 @@ public class Switchs : MonoBehaviour
     private bool isActivate = false;
     private bool playerInRange = false;
 
-    public Transform switchVisual;
-    private Vector3 originalPosition;
-    public float pressDistance = 0.15f;
     private PlayerController PC;
 
     [SerializeField] private AudioSource switchAudio;
 
     public SwitchManager SwitchManager;
+
+    public Animator SwitchAni;
+
     private void Start()
     {
-        originalPosition = switchVisual.localPosition;
         PC = FindFirstObjectByType<PlayerController>();
+        SwitchAni.SetInteger("State", 0);
+
     }
     private void Update()
     {
@@ -43,16 +44,12 @@ public class Switchs : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            PC.HideDirection();
         }
     }
     private void Activate()
     {
         isActivate = true;
-
-        // Move the switch visual to provide feedback when activated
-        switchVisual.localPosition = originalPosition + Vector3.back * pressDistance;
-
+        SwitchAni.SetInteger("State", 1);
         SwitchManager.ActivateSwitch();
 
         if (switchAudio != null)
@@ -64,7 +61,10 @@ public class Switchs : MonoBehaviour
     // when the player runs out of time
     public void ResetSwitch()
     {
+
+        Debug.Log("ResetSwitch was called!");
         isActivate = false;
-        switchVisual.localPosition = originalPosition;
+        SwitchAni.SetInteger("State", 0);
     }
+
 }
