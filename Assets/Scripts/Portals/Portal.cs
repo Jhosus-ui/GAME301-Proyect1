@@ -5,13 +5,25 @@ public class Portal : MonoBehaviour
     public Transform exitPoint;
     public Portal connectedPortal;
 
+    public bool activeInHierarchy { get; }
+
     // Prevents repeated teleportation while the portals are temporarily locked
     private bool canTeleport = true;
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+
         if (!canTeleport) return;
+
+        if (connectedPortal == null) return;
+
+        if (!gameObject.activeInHierarchy ||
+            !connectedPortal.gameObject.activeInHierarchy)
+        {
+            return;
+        } 
+
 
         TeleportPlayer(other);
     }
