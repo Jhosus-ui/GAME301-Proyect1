@@ -117,6 +117,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8837767087152786188}
     - target: {fileID: 8257815867722812674, guid: 47a341a6414940040aee2317765c3225, type: 3}
+      propertyPath: jumpHeight
+      value: 2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8257815867722812674, guid: 47a341a6414940040aee2317765c3225, type: 3}
       propertyPath: ButtonPrompt
       value: 
       objectReference: {fileID: 0}
@@ -136,6 +140,10 @@ PrefabInstance:
       propertyPath: 'WalkSFXs.Array.data[3]'
       value: 
       objectReference: {fileID: 8300000, guid: 0436160d44967294184195fd93a5facc, type: 3}
+    - target: {fileID: 8348128037369813774, guid: 47a341a6414940040aee2317765c3225, type: 3}
+      propertyPath: m_Height
+      value: 4.24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8698897200136725075, guid: 47a341a6414940040aee2317765c3225, type: 3}

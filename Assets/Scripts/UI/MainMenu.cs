@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour
 
             if (Opacity > 1)
             {
-                SceneManager.LoadScene("GAMEPLAY INTEGRATION");
+                SceneManager.LoadScene("Tutorial Level Blockout");
             }
         }
     }

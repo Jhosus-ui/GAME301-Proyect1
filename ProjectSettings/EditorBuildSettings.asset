@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: b1c958765e598cd438a3523a022e6711
   - enabled: 1
+    path: Assets/Scenes/Tutorial Level Blockout.unity
+    guid: 5a8cb4816cd29384881a2cc76c7b5bc2
+  - enabled: 1
     path: Assets/Scenes/GAMEPLAY INTEGRATION.unity
     guid: 2c986a3c3c5c2f64c89c9a7753d9ebdc
   m_configObjects:
