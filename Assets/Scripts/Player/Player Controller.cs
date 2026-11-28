@@ -158,12 +158,12 @@ public class PlayerController : MonoBehaviour
     }
     public void ShowDirection(string info)
     {
-        ButtonPrompt.text = info;
+       // ButtonPrompt.text = info;
     }
 
     public void HideDirection()
     {
-        ButtonPrompt.text = null;
+       // ButtonPrompt.text = null;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

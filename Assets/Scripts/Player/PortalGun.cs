@@ -11,6 +11,8 @@ public class PortalGun : MonoBehaviour
     public Transform redPortal;
     public LayerMask portalSurface;
     public PlayerController playerController;
+    public GameObject PortalGunModel;
+    public bool PortalGunActive;
 
     [SerializeField] private LayerMask portalBlocker;
     [SerializeField] private AudioSource portalShootaudio;
@@ -21,21 +23,30 @@ public class PortalGun : MonoBehaviour
         bluePortal.gameObject.SetActive(false);
         redPortal.gameObject.SetActive(false);
 
+
     }
     private void Update()
     {
+        if (PortalGunActive)
+        {
+            PortalGunModel.SetActive(true);
+        }
+        else
+        {
+            PortalGunModel.SetActive(false);
+        }
         // A single left click attempts to place the Blue Portal.
         // The player no longer needs to enter a separate aiming mode.
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && PortalGunActive)
         {
             ShootPortal();
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && PortalGunActive)
         {
             ShootRedPortal();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && PortalGunActive)
         {
             ReloadPortal();
         }
